@@ -1,0 +1,22 @@
+D_Calendar =
+  VAR _ANO_INI  = YEAR(MIN(Fato[Data]))
+  VAR _ANO_FIM  = YEAR(MAX(Fato[Data]))
+  VAR _DATA_INI = DATE(_ANO_INI, 1, 1)
+  VAR _DATA_FIM = DATE(_ANO_FIM, 12, 31)
+  RETURN
+    ADDCOLUMNS(
+      CALENDAR(_DATA_INI, _DATA_FIM),
+      "Dia"                      , DAY([Date]),
+      "Mês"                      , MONTH([Date]),
+      "Ano"                      , YEAR([Date]),
+      "Dia da semana"            , WEEKDAY([Date]),
+      "Dia da semana por extenso", FORMAT([Date], "dddd"),
+      "Mês curto"                , FORMAT([Date], "mmm"),
+      "Mês por extenso"          , FORMAT([Date], "mmmm"),
+      "Mês/Ano"                  , FORMAT([Date], "mmm/yyyy"),
+      "Mês/Ano ordenada"         , FORMAT([Date], "yyyymm"),
+      "Trimestre"                , FORMAT([Date], "Q") & "º Trim.",
+      "Semestre"                 , IF(MONTH([Date])<=6, "1º Sem.", "2º Sem."),
+      "Passado da fato"          , [Date] < MIN(Fato[Data]),
+      "Futuro da fato"           , [Date] > MAX(Fato[Data])
+    )
