@@ -1,0 +1,33 @@
+D_Hora = 
+  VAR _T_SEQ = GENERATESERIES(0, 86399, 1)
+  VAR _T_TIME = 
+    SELECTCOLUMNS(
+      _T_SEQ,
+      "Seq",     [Value],
+      "Hora",    INT([Value] / 3600),
+      "Minuto",  INT(MOD([Value], 3600) / 60),
+      "Segundo", MOD([Value], 60)
+    )
+  RETURN 
+    ADDCOLUMNS(
+      _T_TIME,
+      "Duração", TIME([Hora], [Minuto], [Segundo]),
+      "Período", 
+        SWITCH(
+          TRUE(),
+          [Hora] >= 0 && [Hora] <= 5,   "Madrugada (0h - 6h)",
+          [Hora] >= 6 && [Hora] <= 11,  "Manhã (6h - 12h)",
+          [Hora] >= 12 && [Hora] <= 17, "Tarde (12h - 18h)",
+          [Hora] >= 18 && [Hora] <= 23, "Noite (18h - 24h)",
+          "Unknown"
+        ),
+      "Período Ordem", 
+        SWITCH(
+          TRUE(),
+          [Hora] >= 0  && [Hora] <= 5,  1,
+          [Hora] >= 6  && [Hora] <= 11, 2,
+          [Hora] >= 12 && [Hora] <= 17, 3,
+          [Hora] >= 18 && [Hora] <= 23, 4,
+          5
+        )
+    )
