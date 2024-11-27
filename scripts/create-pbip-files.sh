@@ -3,7 +3,7 @@
 ls -d *.Report | while read report; do
   name=${report/.Report/}
   test -f "${name}.pbip" && continue
-  cat <<EOF > "$name.pbip"
+  cat <<EOF > "${name}.pbip"
 {
   "version": "1.0",
   "artifacts": [
