@@ -1,12 +1,12 @@
-(objetos as list) as list =>
+(objetos as list, token as text) as list =>
 let
-    Token = fxCorreiosBearerToken(),
+    // token = fxCorreiosBearerToken(),
     // objetos = { "XX111111111BR", "XX222222222BR", "XX333333333BR" },
     CodigosObjetos =
         Text.Combine(
             List.Transform(
                 objetos,
-                each "codigosObjetos=" & _ & "&"
+                each "codigosObjetos=" & Text.From(_) & "&"
             )
         ),
     Fonte = Web.Contents(
@@ -14,7 +14,7 @@ let
         [
             RelativePath = CORREIOS_RASTRO_PATH & "?" & CodigosObjetos & "resultado=U",
             Headers = [
-                Authorization = "Bearer " & Token
+                Authorization = "Bearer " & token
             ]
         ]
     ),
