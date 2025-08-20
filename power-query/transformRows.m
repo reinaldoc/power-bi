@@ -16,6 +16,7 @@ let
                     _,
                     { 
                         { "Pedido", (p) => "P" & Text.PadStart(Text.From(p), 5, "0") },
+                        { "Moeda",  (m) => "BRL" },
                         { "Valor",  (v) => if [Moeda] = "USD" then v * 5 else v }
                     }
                 )
