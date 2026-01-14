@@ -1,6 +1,6 @@
 let
     Hoje = Date.From(DateTimeZone.UtcNow() - #duration(0, 3, 0, 0)),
-    // Ou defina as datas iniciais e finais
+    // Ou defina as datas para obtenção dos anos iniciais e finais
     Coluna_data  = {
         #date(2025, 1, 1),   // data com ano inicial
         Hoje                 // data com ano final
@@ -24,7 +24,8 @@ let
                 Dia da semana = Int64.Type,
                 Dia da semana por extenso = text,
                 #"Mês/Ano" = text,
-                #"Mês/Ano atual" = text,
+                #"Mês/Ano (Mês atual)" = text,
+                #"Mês/Ano (Mês passado)" = text,
                 #"Mês/Ano ordenada" = Int64.Type,
                 Trimestre = text,
                 Semestre = text,
@@ -47,6 +48,14 @@ let
                     }),
                     if Date.Year(Hoje) = Date.Year(_) and Date.Month(Hoje) = Date.Month(_) then
                         "Mês atual"
+                    else
+                        Text.Combine({
+                            Text.Start(Date.MonthName(_), 3),
+                            "/",
+                            Text.From(Date.Year(_))
+                        }),
+                    if Date.StartOfMonth(Date.AddMonths(Hoje, -1)) = Date.StartOfMonth(_) then
+                        "Mês passado"
                     else
                         Text.Combine({
                             Text.Start(Date.MonthName(_), 3),
