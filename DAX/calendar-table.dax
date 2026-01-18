@@ -3,6 +3,7 @@ D_Calendar =
   VAR _ANO_FIM  = YEAR(MAX(Fato[Data]))
   VAR _DATA_INI = DATE(_ANO_INI, 1, 1)
   VAR _DATA_FIM = DATE(_ANO_FIM, 12, 31)
+  VAR _HOJE     = TODAY()
   RETURN
     ADDCOLUMNS(
       CALENDAR(_DATA_INI, _DATA_FIM),
@@ -14,6 +15,21 @@ D_Calendar =
       "Mês curto"                , FORMAT([Date], "mmm"),
       "Mês por extenso"          , FORMAT([Date], "mmmm"),
       "Mês/Ano"                  , FORMAT([Date], "mmm/yyyy"),
+      "Mês/Ano (Mês atual)"      ,
+        IF(
+          AND(
+            YEAR(_HOJE) = YEAR([Date]),
+            MONTH(_HOJE) = MONTH([Date])
+          ),
+          "Mês atual",
+          FORMAT([Date], "mmm/yyyy")
+        ),
+      "Mês/Ano (Mês passado)"    ,
+        IF(
+          EOMONTH(_HOJE, -2) = EOMONTH([Date], -1),
+          "Mês passado",
+          FORMAT([Date], "mmm/yyyy")
+        ),
       "Mês/Ano ordenada"         , FORMAT([Date], "yyyymm"),
       "Trimestre"                , FORMAT([Date], "Q") & "º Trim.",
       "Semestre"                 , IF(MONTH([Date])<=6, "1º Sem.", "2º Sem."),
