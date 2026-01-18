@@ -1,9 +1,11 @@
 D_Calendar =
-  VAR _ANO_INI  = YEAR(MIN(Fato[Data]))
-  VAR _ANO_FIM  = YEAR(MAX(Fato[Data]))
+  VAR _HOJE     = TODAY()
+  VAR _ANO_INI  = 2017
+  VAR _ANO_FIM  = YEAR(_HOJE)
+  // VAR _ANO_INI  = YEAR(MIN(Fato[Data]))
+  // VAR _ANO_FIM  = YEAR(MAX(Fato[Data]))
   VAR _DATA_INI = DATE(_ANO_INI, 1, 1)
   VAR _DATA_FIM = DATE(_ANO_FIM, 12, 31)
-  VAR _HOJE     = TODAY()
   RETURN
     ADDCOLUMNS(
       CALENDAR(_DATA_INI, _DATA_FIM),
