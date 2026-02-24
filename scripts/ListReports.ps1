@@ -1,15 +1,26 @@
 $WarningPreference = "SilentlyContinue"
+$ErrorActionPreference = "Stop"
 
-Login-PowerBI
+Write-Host "Iniciando Login..."
+try {
+    $login = Login-PowerBI
+    Write-Host ("Usuário " + $login.UserName + " autenticado com sucesso.")
+} catch {
+    Write-Host "Login falhou"
+    Read-Host "Pressione Enter para sair"
+    exit
+}
 
 # $WorkspaceId = "00000000-1111-2222-3333-444444444444"
-$WorkspaceId = Read-Host -Prompt "Enter Workspace ID: "
+$WorkspaceId = Read-Host -Prompt "Enter Workspace ID"
 
-$semanticmodels = Get-PowerBIReport -WorkspaceId $WorkspaceId
+$reports = Get-PowerBIReport -WorkspaceId $WorkspaceId
 
-foreach($sm in $semanticmodels.GetEnumerator()) {
-    $id = $($sm.Id)
-    $name = $($sm.Name)
+Write-Host "Reports:"
+
+foreach($r in $reports.GetEnumerator()) {
+    $id = $($r.Id)
+    $name = $($r.Name)
     Write-Host ($id.ToString() + ":" + $name)
 }
 

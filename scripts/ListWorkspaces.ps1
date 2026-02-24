@@ -1,9 +1,20 @@
 $WarningPreference = "SilentlyContinue"
+$ErrorActionPreference = "Stop"
 
-Login-PowerBI
+Write-Host "Iniciando Login..."
+try {
+    $login = Login-PowerBI
+    Write-Host ("Usuário " + $login.UserName + " autenticado com sucesso.")
+} catch {
+    Write-Host "Login falhou"
+    Read-Host "Pressione Enter para sair"
+    exit
+}
 
 # Requires Admin permission to use scope Organization
 $workspaces = Get-PowerBIWorkspace -Scope Organization -All
+
+Write-Host ("Workspaces for tenant: " + $login.TenantId)
 
 foreach($ws in $workspaces.GetEnumerator()) {
     $id = $($ws.Id)
