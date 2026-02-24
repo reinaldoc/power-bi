@@ -1,5 +1,7 @@
+# Requires MicrosoftPowerBIMgmt Module
+#  - Install-PSResource -Name MicrosoftPowerBIMgmt
 
-# Install-Module -Name MicrosoftPowerBIMgmt
+$WarningPreference = "SilentlyContinue"
 
 Login-PowerBI
 
