@@ -16,7 +16,7 @@ $WorkspaceId = Read-Host -Prompt "Enter Workspace ID"
 
 $semanticmodels = Get-PowerBIDataset -WorkspaceId $WorkspaceId
 
-Write-Host "Reports:"
+Write-Host "Semantic Models:"
 
 foreach($sm in $semanticmodels.GetEnumerator()) {
     $id = $($sm.Id)
