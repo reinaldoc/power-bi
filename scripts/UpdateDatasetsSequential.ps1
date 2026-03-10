@@ -57,14 +57,9 @@ function Atualizar-Dataset {
 
 try {
     Atualizar-Dataset -WorkspaceId $WorkspaceId -DatasetId "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" -NomeDataset "PAINEL_1"
-
     Atualizar-Dataset -WorkspaceId $WorkspaceId -DatasetId "zzzzzzzz-xxxx-wwww-yyyy-vvvvvvvvvvvv" -NomeDataset "PAINEL_2"
-
     Atualizar-Dataset -WorkspaceId $WorkspaceId -DatasetId "gggggggg-dddd-mmmm-uuuu-oooooooooooo" -NomeDataset "PAINEL_3"
-
-    Write-Host "`n====================================================="
-    Write-Host "Todas as atualizações foram concluídas com sucesso!" -ForegroundColor Green
-
+    Write-Host "`nTodas as atualizações foram concluídas com sucesso!" -ForegroundColor Green
 } catch {
     # Captura o erro (throw) caso algum dataset falhe e impede a execução dos próximos
     Write-Host "`nExecução abortada devido a um erro." -ForegroundColor Red
